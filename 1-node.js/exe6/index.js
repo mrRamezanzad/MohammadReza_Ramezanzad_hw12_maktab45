@@ -2,7 +2,6 @@ const server = require("http"),
     path = require("path"),
     fs = require("fs"),
     public = require("./routes/public.js"),
-    publicPath = __dirname,
     routes = ["/",
         "/public/css/bootstrap.css",
         "/public/css/1-reqres-users.css",
@@ -31,12 +30,15 @@ server.createServer(function (req, res) {
     }
 
     // using public files
-    public(req, res, publicPath, routes)
+    public(req, res, routes)
 
     if (check404(req.url)) {
         res.writeHead(404)
-        res.write("<h1>404 Page Not Found</h1>")
-        res.end()
+        fs.readFile(path.join(__dirname, "views/404.html"), (err, page)=>{
+            if(err) console.log(err)
+            res.write(page)
+            res.end()
+        })
     }
 
 }).listen(80, () => {

@@ -62,3 +62,14 @@ nav.scroll .navbar-brand {
   color: #212529;
   cursor: pointer;
 }
+
+/* page 404 */
+.error-404{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  margin:0  auto;
+  padding-top: 15%;
+  color: #212529;
+  font-size: 5rem;
+  font-weight: 300;
+}

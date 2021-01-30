@@ -1,4 +1,4 @@
-module.exports = function (req, res, publicPath, routes) {
+module.exports = function (req, res, routes) {
     const fs = require("fs"),
         path = require("path")
 
@@ -6,7 +6,7 @@ module.exports = function (req, res, publicPath, routes) {
 
         if (routes.some(el => el === req.url)) {
 
-            fs.readFile(path.join(publicPath, req.url), (err, file) => {
+            fs.readFile(path.join(__dirname, "..", req.url), (err, file) => {
 
                 console.log();
                 res.writeHead(200, {})
