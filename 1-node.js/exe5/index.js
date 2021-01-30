@@ -5,22 +5,17 @@ const server = require("http"),
 server.createServer(function (req, res) {
 
     if (req.method === "GET" && req.url === "/") {
-        res.writeHead(200)
-        res.end("Hello World\n")
+        fs.readFile(path.join(__dirname, ("views/index.html")), "utf-8", (err, page) => {
+            if (err) console.log(err)
 
-    } else if (req.method === "GET" && req.url === "/about") {
-
-        fs.readFile(path.join(__dirname, "about.json"), (err, file) => {
-
-            if (err) console.log(err);
             res.writeHead(200, {
-                "Content-Type": "application/json"
+                "Content-Type": "text/html"
             })
-            res.write(file)
-            res.end()
+            res.end(page)
         })
 
     } else {
+
         res.writeHead(404)
         res.end("<h1>404 NOT FOUND</h1>")
 

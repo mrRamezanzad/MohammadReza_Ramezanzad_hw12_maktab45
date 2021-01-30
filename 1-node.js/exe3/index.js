@@ -10,15 +10,8 @@ server.createServer(function (req, res) {
 
     } else if (req.method === "GET" && req.url === "/about") {
 
-        fs.readFile(path.join(__dirname, "about.json"), (err, file) => {
-
-            if (err) console.log(err);
-            res.writeHead(200, {
-                "Content-Type": "application/json"
-            })
-            res.write(file)
-            res.end()
-        })
+        res.writeHead(200)
+        res.end(`the url is printed in console`, console.log(req.url))
 
     } else {
         res.writeHead(404)
