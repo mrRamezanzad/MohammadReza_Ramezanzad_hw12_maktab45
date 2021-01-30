@@ -8,7 +8,6 @@ module.exports = function (req, res, isLoggedIn) {
             res.writeHead(200)
             res.write(page)
             res.end()
-
         })
     }
 

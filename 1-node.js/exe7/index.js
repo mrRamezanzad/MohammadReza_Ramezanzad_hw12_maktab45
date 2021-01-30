@@ -2,7 +2,11 @@ const server = require("http"),
     path = require("path"),
     fs = require("fs"),
     public = require("./routes/public.js"),
-    routes = ["/", "/login", "/profile", "/panel", "/public/css/login.css","/public/assets/background.jpg"]
+    routes = ["/", "/login", "/profile",
+        "/panel", "/public/css/login.css",
+        "/public/assets/background.jpg",
+        "/public/js/login.js"
+    ]
 
 let isLoggedIn = false
 
@@ -42,5 +46,5 @@ server.createServer(function (req, res) {
 
 function check404(url) {
     // console.log(String("/"+routes[1]),"------",String(url));
-    return routes.some((el) =>  el === String(url)) ? false : true
+    return routes.some((el) => el === String(url)) ? false : true
 }
