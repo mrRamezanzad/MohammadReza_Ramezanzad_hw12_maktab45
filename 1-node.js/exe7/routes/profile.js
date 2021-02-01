@@ -5,12 +5,21 @@ module.exports = function (req, res, isLoggedIn) {
 
     // login page
     if (req.method === "GET" && req.url === "/login") {
-        fs.readFile(path.join(__dirname, "..", "/views/login.html"), "utf8", (err, page) => {
-            if (err) console.log(err)
-            res.writeHead(200)
-            res.write(page)
+
+        if (isLoggedIn[0] === true) {
+            res.writeHead(302, {
+                "Location": "http://localhost/profile"
+            })
             res.end()
-        })
+        } else {
+
+            fs.readFile(path.join(__dirname, "..", "/views/login.html"), "utf8", (err, page) => {
+                if (err) console.log(err)
+                res.writeHead(200)
+                res.write(page)
+                res.end()
+            })
+        }
     }
 
     // authenticate post request handler
@@ -41,6 +50,14 @@ module.exports = function (req, res, isLoggedIn) {
 
     }
 
+    // logout
+    if (req.method === "GET" && req.url === "/logout") {
+        isLoggedIn[0] = false
+        console.log("logout");
+        res.writeHead(200)
+        res.end("logged out")
+    }
+
     // panel and profile page 
     if (req.method === "GET" && req.url === "/panel" || req.url === "/profile") {
 
@@ -48,7 +65,6 @@ module.exports = function (req, res, isLoggedIn) {
         if (isLoggedIn[0]) {
             fs.readFile(path.join(__dirname, "..", "/views/1-reqres-users.html"), "utf8", (err, page) => {
                 if (err) console.log(err);
-                console.log(page);
                 res.writeHead(200, {
                     "Content-Type": "text/html"
                 })
@@ -56,7 +72,8 @@ module.exports = function (req, res, isLoggedIn) {
             })
 
         } else {
-            res.writeHead(401, {
+            res.writeHead(302, {
+                "Location": "http://localhost/login"
 
             })
             res.end(String(isLoggedIn[0]))

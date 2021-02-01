@@ -162,16 +162,22 @@ function showPagination(users, currentPage = 1) {
 // Add new click handler 
 $(".new-user").on("click", "#add-user-button", function (e) {
     e.preventDefault()
-  showSignUpForm()
+    showSignUpForm()
 })
 
 // sign up handler 
 $("#signup").on("click", function (e) {
     e.preventDefault()
-  showSignUpForm()
+    $.ajax({
+        type: "GET",
+        url: "http://localhost/logout",
+        success: function (response) {
+            window.location.replace("http://localhost/login")
+        }
+    });
 })
 // show modal form for sign up
-function showSignUpForm(){
+function showSignUpForm() {
     console.log("new user is invoked")
     modalBody.html('')
     modalBody.append(`
@@ -368,7 +374,7 @@ function searchUsers() {
             String(el.last_name).toLowerCase().includes(searchQuery) || String(el.email).includes(searchQuery) || String(el.avatar).includes(searchQuery))
 
         //solution 3 is regex but i'm tired (00)
-        
+
         // show the damn users
         showUsers(foundUsers)
     } else {
@@ -386,31 +392,31 @@ $("[name=select]").on("change", function (e) {
 })
 
 // event listener for go in and out of search Hotkeys
-$(window).on("keyup", function(e){
-    
+$(window).on("keyup", function (e) {
+
     // focus on search
-    if(e.key === "/") $("#search-input").focus()
+    if (e.key === "/") $("#search-input").focus()
 
     //blur the search box
-    if(e.key === "Escape") $("#search-input").blur()
- 
+    if (e.key === "Escape") $("#search-input").blur()
+
 })
 
 // navbar scroll change 
-$(window).on("scroll", function(e){
-    let triggerPoint = $("select").offset().top-55
+$(window).on("scroll", function (e) {
+    let triggerPoint = $("select").offset().top - 55
     let scrollPosition = $(this).scrollTop()
 
-    if(scrollPosition > triggerPoint && scrolltrigered === false){
+    if (scrollPosition > triggerPoint && scrolltrigered === false) {
         console.log("trigger alert");
         scrolltrigered = true
         $(".navbar").toggleClass('scroll navbar-dark bg-dark')
         $(".navbar").toggleClass('navbar-light bg-light')
     }
-    if(scrollPosition < triggerPoint && scrolltrigered === true){
+    if (scrollPosition < triggerPoint && scrolltrigered === true) {
         $(".navbar").toggleClass('scroll navbar-dark bg-dark')
         $(".navbar").toggleClass('navbar-light bg-light')
-        
+
         console.log("trigger alert");
         scrolltrigered = false
         console.log($(".navbar").text())
