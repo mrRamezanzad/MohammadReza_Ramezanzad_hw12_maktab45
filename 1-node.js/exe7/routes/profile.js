@@ -1,8 +1,6 @@
 const fs = require("fs"),
     path = require("path")
-const {
-    finished
-} = require("stream")
+
 module.exports = function (req, res, isLoggedIn) {
 
     // login page
@@ -18,54 +16,50 @@ module.exports = function (req, res, isLoggedIn) {
     // authenticate post request handler
     if (req.method === "POST" && req.url === "/login") {
 
-        if (isLoggedIn) {
+        formData = ""
+        req.on("data", chunk => {
+            formData += chunk
+        })
+        req.on("end", () => {
 
-            res.writeHead(200, {
-                "Content-Type": "application/json"
-            })
-            console.log("loggedIN");
-            res.write("You are Logged in")
-            res.end()
-
-        } else {
-
-            // console.log("not logged");
-            formData = ""
-            req.on("data", chunk => {
-                formData += chunk
-            })
-            req.on("end", () => {
-
+            isLoggedIn[0] = authenticateUser(JSON.parse(formData))
+            console.log("authenticate post :", isLoggedIn);
+            if (isLoggedIn[0]) {
                 res.writeHead(200, {
-                    "Content-Type": "application/json"
+                    "Location": "/panel",
+                    "Content-Type": "text/html"
                 })
-                console.log(authenticateUser(JSON.parse(formData)));
-                if (authenticateUser(JSON.parse(formData))) {
-                    res.write("You are logged")
-                    res.end("logged")
-                } else {
-                    res.write("You are not Logged in")
-                    res.end("logged")
-                }
-            })
+                res.end("authorized")
+            } else {
+                res.writeHead(401, {
+                    "Content-Type": "simple/text"
+                })
+                res.end("unauthorized")
+            }
+        })
 
-        }
+
     }
 
     // panel and profile page 
     if (req.method === "GET" && req.url === "/panel" || req.url === "/profile") {
 
-        if (isLoggedIn) {
-            res.writeHead(200, {
-                "Content-Type": "text/html"
+        console.log("panel get: ", isLoggedIn);
+        if (isLoggedIn[0]) {
+            fs.readFile(path.join(__dirname, "..", "/views/1-reqres-users.html"), "utf8", (err, page) => {
+                if (err) console.log(err);
+                console.log(page);
+                res.writeHead(200, {
+                    "Content-Type": "text/html"
+                })
+                res.end(page)
             })
-            res.end("logged in ")
 
         } else {
-            res.writeHead(302, {
-                "Location": "/login"
+            res.writeHead(401, {
+
             })
-            res.end()
+            res.end(String(isLoggedIn[0]))
         }
     }
 }
@@ -76,8 +70,6 @@ function authenticateUser(formData) {
 
     let users = fs.readFileSync(path.join(__dirname, "..", "DB/users.json"), "utf8")
     users = JSON.parse(users)
-    // console.log(users.data[2].userName ,users.data[2].password  );
-    // console.log(formData.username, formData.password);
     return users.data.find(el => el.userName === formData.username && el.password === formData.password) ?
         response.success = true : response.success = false
 

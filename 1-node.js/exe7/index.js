@@ -5,10 +5,21 @@ const server = require("http"),
     routes = ["/", "/login", "/profile",
         "/panel", "/public/css/login.css",
         "/public/assets/background.jpg",
-        "/public/js/login.js"
+        "/public/js/login.js", "/public/css/bootstrap.css",
+        "/public/css/1-reqres-users.css",
+        "/public/js/jquery.min.js",
+        "/public/js/bootstrap.js",
+        "/public/js/1-reqres-users.js",
+        "/public/assets/user1.jpg",
+        "/public/assets/user2.jpg",
+        "/public/assets/user3.jpg",
+        "/public/assets/user4.jpg",
+        "/public/assets/user5.jpg",
+        "/public/assets/user6.jpg",
+        "/public/assets/user7.png",
     ]
 
-let isLoggedIn = false
+let isLoggedIn = [false]
 
 server.createServer(function (req, res) {
 

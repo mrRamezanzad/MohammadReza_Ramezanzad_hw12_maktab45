@@ -18,29 +18,29 @@ body {
 .container form {
   display: flex;
   flex-flow: column;
+  flex-direction: column;
+  row-gap: 10px;
   align-items: center;
   height: 300px;
   width: 450px;
   padding: 30px;
+  padding-top: 50px;
   color: white;
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   font-family: Tahoma;
   text-align: center;
-  row-gap: 10px;
-  padding: 20px;
 }
 .container form label {
   font-size: 20px;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
 }
-.container form span {
+.container form div {
   position: relative;
+  margin-bottom: 10px;
+  box-sizing: border-box;
 }
-.container form span input {
+.container form div input {
   box-sizing: border-box;
   width: 400px;
   text-align: right;
@@ -50,9 +50,11 @@ body {
   color: #6C757D;
   background-color: white;
   border-radius: 4px;
-  border-style: none;
+  border: 1px solid transparent;
+  box-shadow: 0 0 10px 0px transparent;
+  
 }
-.container form span.user::after {
+.container form div.user::after {
   content: "";
   position: absolute;
   display: inline-block;
@@ -71,7 +73,7 @@ body {
   font-weight: 600;
   /* <-- add this or 400 for other styles */
 }
-.container form span.pass::after {
+.container form div.pass::after {
   content: "";
   position: absolute;
   display: inline-block;
@@ -100,7 +102,25 @@ body {
   border-radius: 4px;
   border-style: none;
 }
+
 .container form p a {
   color: #0076F7;
   text-decoration: none;
+}
+
+.login-status{
+  margin: 0;
+  opacity: 0;
+}
+
+
+.error-text{
+  opacity: 1;
+  color: red;
+  text-shadow: 0 1px 3px red;
+}
+.success-text{
+  opacity: 1;
+  color: green;
+  text-shadow: 0 1px 3px green;
 }
