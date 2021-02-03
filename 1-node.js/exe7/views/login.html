@@ -17,11 +17,13 @@
         <form action="/login" method="POST">
             <label for="form">ورود به پنل کاربری</label>
             <div class="user">
-                <input type="text" name="" id="username" placeholder="نام کاربری">
+                <input type="text" name="username" id="username" placeholder="نام کاربری">
             </div>
+            <p class="empty-username">الزامی می باشد</p>
             <div class="pass">
                 <input type="password" name="" id="password" placeholder="رمز عبور">
             </div>
+            <p class="empty-password">الزامی می باشد</p>
             <button id="login-button" class="button" href="/panel">ورود</button>
             <p>حساب کاربری ندارید؟ <a href="/">ثبت نام</a></p>
             <p class="login-status">خوش آمدید</p>

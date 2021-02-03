@@ -21,10 +21,9 @@ body {
   flex-direction: column;
   row-gap: 10px;
   align-items: center;
-  height: 300px;
+  height: 310px;
   width: 450px;
-  padding: 30px;
-  padding-top: 50px;
+  padding:  50px 30px;
   color: white;
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 5px;
@@ -37,7 +36,6 @@ body {
 }
 .container form div {
   position: relative;
-  margin-bottom: 10px;
   box-sizing: border-box;
 }
 .container form div input {
@@ -123,4 +121,14 @@ body {
   opacity: 1;
   color: green;
   text-shadow: 0 1px 3px green;
+}
+.empty-username, .empty-password{
+  width: 100%;
+  text-align: right;
+  padding: 0;
+  margin: 0 ;
+  margin-right: 80px;
+  color: red;
+  margin-bottom: 10px;
+  opacity: 0;
 }
